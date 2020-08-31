@@ -15,9 +15,15 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+section {
+  margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .team {
   min-height: 54rem;
-  margin: 10rem auto;
   padding: 1rem;
   font-size: 1.7rem;
   color: white;
