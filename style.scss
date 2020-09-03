@@ -1,3 +1,4 @@
+
 *,
 *::after,
 *::before {
@@ -23,8 +24,8 @@ section {
   justify-content: space-evenly;
 }
 .team {
-  min-height: 54rem;
-  padding: 1rem;
+  min-height: 55rem;
+  padding: 0.4rem;
   font-size: 1.7rem;
   color: white;
   width: 40rem;
@@ -33,7 +34,7 @@ section {
   box-shadow: 8px 8px 30px 1px rgba(0, 0, 0, 0.514);
 
   display: grid;
-  column-gap: 1rem;
+
   grid-template-rows: repeat(2, 6rem) auto;
   grid-template-columns: 3fr 1fr;
 
@@ -52,7 +53,7 @@ section {
   }
 
   &__station-header {
-    margin: 0 1rem;
+    margin: 0 1rem 0 -0.5rem;
     grid-row: 2 / 3;
     grid-column: 2 / 3;
   }
@@ -111,9 +112,6 @@ section {
         }
       }
     }
-    .checked {
-      background-color: #e6baba;
-    }
   }
 
   &__stations {
@@ -123,8 +121,9 @@ section {
     &--station {
       color: black;
       background-color: #e8e8e8;
-      margin: 1rem;
-      height: 3.5rem;
+      margin: 1rem 1rem 1rem -0.5rem;
+      height: 3rem;
+      padding: 0.4rem;
 
       border-radius: 0.5rem;
       box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
@@ -132,16 +131,21 @@ section {
 
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
 
       h2 {
-        font-size: 3rem;
+        font-size: 1.5rem;
+        text-align: center;
       }
 
       &:hover > .remove-station {
         visibility: visible;
       }
     }
+  }
+
+  .checked {
+    background-color: #e6baba;
   }
 
   .remove-station,
@@ -153,8 +157,8 @@ section {
     height: 1rem;
     width: 1rem;
     padding: 0.3rem;
-    right: -0.3rem;
-    top: -0.3rem;
+    right: -0.5rem;
+    top: -0.8rem;
     visibility: hidden;
   }
 }
@@ -184,3 +188,4 @@ section {
   font-size: 300%;
   display: block;
 }
+*/

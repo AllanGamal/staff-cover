@@ -1,6 +1,7 @@
 let colors = ["#264653", "#008D8D", "#607D8B", "#D06045"];
 let nonColors = [];
 let teams = [];
+let stations = [];
 
 function addTeam(divId) {
   let newTeam = { teamId: divId, fitters: [], stations: [] };
@@ -49,7 +50,7 @@ function addTeam(divId) {
   //// Add stations header
   addElement("div", divId, "team__station-header", divId + "-stations-header");
 
-  // Add fitters title box
+  // Add stations title box
   addElement(
     "div",
     divId + "-stations-header",
@@ -57,7 +58,7 @@ function addTeam(divId) {
     divId + "-stations-title-box"
   );
 
-  // Add fitters title
+  // Add stations title
   addElement(
     "h3",
     divId + "-stations-title-box",
@@ -66,7 +67,7 @@ function addTeam(divId) {
   );
   document.getElementById(divId + "-stations-title").innerHTML = "Stations";
 
-  // Add fitters add-button
+  // Add stations add-button
   addElement(
     "button",
     divId + "-stations-header",
@@ -74,10 +75,16 @@ function addTeam(divId) {
     divId + "-btn-add-stations"
   );
   document.getElementById(divId + "-btn-add-stations").innerHTML = "Add";
+
+  ///// Add fitters box
+  addElement("div", divId, "team__fitters", divId + "-fitters");
+
+  ///// Add stations box
+  addElement("div", divId, "team__stations", divId + "-stations");
 }
 
 // Add element function
-function addElement(box, parent, Class = 0, id = 0) {
+function addElement(box, parent, Class, id) {
   let newDiv = document.createElement(box);
   newDiv.classList = Class;
   document.getElementById(parent).appendChild(newDiv);
@@ -109,5 +116,50 @@ document.getElementById("add-team").addEventListener("click", function () {
         alert("Name already taken, try another one.");
       }
     }
+  }
+});
+
+function addStation(e) {
+  let teamId = e.target.parentNode.parentNode.id;
+  let station = prompt("Station name");
+  if (station) {
+    if (stations.includes(station)) {
+      alert("Station name already taken, try another one.");
+    } else {
+      // Add station box element
+      addElement(
+        "div",
+        teamId + "-stations",
+        "team__stations--station",
+        station
+      );
+      // Add remove-button
+      addElement(
+        "button",
+        station,
+        "btn remove-station",
+        teamId + "-" + station + "-remove-station-button"
+      );
+      document.getElementById(
+        teamId + "-" + station + "-remove-station-button"
+      ).innerHTML = "X";
+      stations.push(station);
+
+      // Add station text
+      addElement("h2", station, "station-text", station + "-header");
+      document.getElementById(station + "-header").innerHTML = station;
+
+      // Add station-checkbox
+      addElement("input", station, "checkbox", station + "-checkbox");
+      document.getElementById(station + "-checkbox").type = "checkbox";
+    }
+  }
+}
+
+// Click station button to add station
+document.addEventListener("click", function (e) {
+  // click to add station
+  if (e.target.className.includes("add-station")) {
+    addStation(e);
   }
 });
