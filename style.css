@@ -32,8 +32,8 @@ section {
 }
 
 .team {
-  min-height: 54rem;
-  padding: 1rem;
+  min-height: 55rem;
+  padding: 0.4rem;
   font-size: 1.7rem;
   color: white;
   width: 40rem;
@@ -43,8 +43,6 @@ section {
           box-shadow: 8px 8px 30px 1px rgba(0, 0, 0, 0.514);
   display: -ms-grid;
   display: grid;
-  -webkit-column-gap: 1rem;
-          column-gap: 1rem;
   -ms-grid-rows: (6rem)[2] auto;
       grid-template-rows: repeat(2, 6rem) auto;
   -ms-grid-columns: 3fr 1fr;
@@ -73,7 +71,7 @@ section {
 }
 
 .team__station-header {
-  margin: 0 1rem;
+  margin: 0 1rem 0 -0.5rem;
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
   grid-row: 2 / 3;
@@ -148,6 +146,7 @@ section {
 }
 
 .team__fitters--fitter--competency .box {
+  position: relative;
   border-radius: 0.5rem;
   font-size: 80%;
   margin: 0rem -0.3rem 0.5rem 1rem;
@@ -160,8 +159,8 @@ section {
           box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.521);
 }
 
-.team__fitters .checked {
-  background-color: #e6baba;
+.team__fitters--fitter--competency .box:hover > .remove-competency {
+  visibility: visible;
 }
 
 .team__stations {
@@ -176,8 +175,9 @@ section {
 .team__stations--station {
   color: black;
   background-color: #e8e8e8;
-  margin: 1rem;
-  height: 3.5rem;
+  margin: 1rem 1rem 1rem -0.5rem;
+  height: 3rem;
+  padding: 0.4rem;
   border-radius: 0.5rem;
   -webkit-box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
           box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
@@ -188,21 +188,27 @@ section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .team__stations--station h2 {
-  font-size: 3rem;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .team__stations--station:hover > .remove-station {
   visibility: visible;
 }
 
+.team .checked {
+  background-color: #e6baba;
+}
+
 .team .remove-station,
-.team .remove-fitter {
+.team .remove-fitter,
+.team .remove-competency {
   position: absolute;
   font-size: 50%;
   background-color: #f16161;
@@ -210,8 +216,8 @@ section {
   height: 1rem;
   width: 1rem;
   padding: 0.3rem;
-  right: -0.3rem;
-  top: -0.3rem;
+  right: -0.5rem;
+  top: -0.8rem;
   visibility: hidden;
 }
 
