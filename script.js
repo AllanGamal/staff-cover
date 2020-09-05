@@ -1,7 +1,9 @@
+////////////////////////////////// DAY 8
 let colors = ["#264653", "#008D8D", "#607D8B", "#D06045"];
 let nonColors = [];
 let teams = [];
 let stations = [];
+let names = [];
 
 function addTeam(divId) {
   let newTeam = { teamId: divId, fitters: [], stations: [] };
@@ -143,23 +145,89 @@ function addStation(e) {
       document.getElementById(
         teamId + "-" + station + "-remove-station-button"
       ).innerHTML = "X";
-      stations.push(station);
 
       // Add station text
       addElement("h2", station, "station-text", station + "-header");
-      document.getElementById(station + "-header").innerHTML = station;
+      document.getElementById(station + "-header").innerHTML =
+        station[0].toUpperCase() + station.slice(1);
 
       // Add station-checkbox
       addElement("input", station, "checkbox", station + "-checkbox");
       document.getElementById(station + "-checkbox").type = "checkbox";
+
+      stations.push(station);
     }
   }
 }
 
-// Click station button to add station
+// Click add station button to add station
 document.addEventListener("click", function (e) {
   // click to add station
   if (e.target.className.includes("add-station")) {
     addStation(e);
+  }
+});
+
+// Add fitter function
+function addFitter(e) {
+  let teamId = e.target.parentNode.parentNode.id;
+  let name = prompt("Enter the name of the fitter");
+
+  if (name) {
+    if (names.includes(name)) {
+      alert("Name already taken, try another one.");
+    } else {
+      // Add fitter-box
+      addElement(
+        "div",
+        teamId + "-fitters",
+        "team__fitters--fitter",
+        name + "-fitter"
+      );
+
+      // Add remove-fitter-btn
+      addElement(
+        "button",
+        name + "-fitter",
+        "btn remove-fitter",
+        teamId + "-" + name + "-remove-fitter-button"
+      );
+      document.getElementById(
+        teamId + "-" + name + "-remove-fitter-button"
+      ).innerHTML = "X";
+
+      // Add name-box
+      addElement("div", name + "-fitter", "name", name);
+
+      // Add h3-name
+      addElement("h3", name, "name-field", name + "-field");
+      document.getElementById(name + "-field").innerHTML =
+        name[0].toUpperCase() + name.slice(1);
+
+      // Add optionbox
+      addElement("div", name, "options", name + "-options");
+
+      // Add checkbox
+      addElement("input", name + "-options", "checkbox", name + "-checkbox");
+      document.getElementById(name + "-checkbox").type = "checkbox";
+
+      // Add button to add competency
+      addElement(
+        "button",
+        name + "-options",
+        "btn add-competency",
+        name + "-add-competency"
+      );
+      document.getElementById(name + "-add-competency").innerHTML = "Add";
+
+      names.push(name);
+    }
+  }
+}
+
+// Click add fitters to add fitters
+document.addEventListener("click", function (e) {
+  if (e.target.className.includes("add-fitter")) {
+    addFitter(e);
   }
 });
