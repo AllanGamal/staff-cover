@@ -1,4 +1,3 @@
-////////////////////////////////// DAY 8
 let colors = ["#264653", "#008D8D", "#607D8B", "#D06045"];
 let nonColors = [];
 let teams = [];
@@ -220,6 +219,14 @@ function addFitter(e) {
       );
       document.getElementById(name + "-add-competency").innerHTML = "Add";
 
+      // Add competency dib box
+      addElement(
+        "div",
+        name + "-fitter",
+        "team__fitters--fitter--competency",
+        name + "-competency"
+      );
+
       names.push(name);
     }
   }
@@ -229,5 +236,19 @@ function addFitter(e) {
 document.addEventListener("click", function (e) {
   if (e.target.className.includes("add-fitter")) {
     addFitter(e);
+  }
+});
+
+////////////////////// FOR LATER /////////////////////////////////
+// Click to add competency
+document.addEventListener("click", (e) => {
+  let nameId = e.target.parentNode.parentNode.id;
+  if (e.target.className.includes("add-competency")) {
+    // Add blur to backround
+    document.getElementById("section").classList.add("blur");
+    document.getElementById("add-team").classList.add("blur");
+
+    // Make pop up visible
+    document.querySelector(".pop-up").style.display = "flex";
   }
 });
