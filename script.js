@@ -5,7 +5,12 @@ let stations = [];
 let names = [];
 
 function addTeam(divId) {
-  let newTeam = { teamId: divId, fitters: [], stations: [] };
+  let newTeam = {
+    teamName: divId,
+    fitters: [],
+    stations: [],
+  };
+
   teams.push(newTeam);
 
   // Color team card
@@ -17,7 +22,8 @@ function addTeam(divId) {
   // Add team name title
   addElement("div", divId, "team__title", divId + "title-box");
   addElement("h1", divId + "title-box", "teamtitle", divId + "-title");
-  document.getElementById(divId + "-title").innerHTML = divId;
+  document.getElementById(divId + "-title").innerHTML =
+    divId[0].toUpperCase() + divId.slice(1);
 
   ///// Add fitters header
   addElement("div", divId, "team__fitter-header", divId + "-fitters-header");
@@ -93,6 +99,8 @@ function addElement(box, parent, Class, id) {
 
   // if div class == team, give team name and add to teams list
   if (Class == "team") {
+    console.log(teams);
+
     addTeam(id);
   }
 }
@@ -107,8 +115,21 @@ document.getElementById("add-team").addEventListener("click", function () {
       addElement("div", "section", "team", teamName);
     } else {
       for (let i = 0; i < teams.length; i++) {
-        if (teamName == teams[i].teamId) {
+        if (teams[i].teamName.toUpperCase() == teamName.toUpperCase()) {
           temp = false;
+          break;
+        }
+      }
+      for (let i = 0; i < stations.length; i++) {
+        if (stations[i].toUpperCase() == teamName.toUpperCase()) {
+          temp = false;
+          break;
+        }
+      }
+      for (let i = 0; i < names.length; i++) {
+        if (names[i].toUpperCase() == teamName.toUpperCase()) {
+          temp = false;
+          break;
         }
       }
       if (temp == true) {
@@ -121,10 +142,30 @@ document.getElementById("add-team").addEventListener("click", function () {
 });
 
 function addStation(e) {
+  let temp = true;
   let teamId = e.target.parentNode.parentNode.id;
   let station = prompt("Station name");
   if (station) {
-    if (stations.includes(station)) {
+    for (let i = 0; i < stations.length; i++) {
+      if (stations[i].toUpperCase() == station.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+    for (let i = 0; i < names.length; i++) {
+      if (names[i].toUpperCase() == station.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+    for (let i = 0; i < teams.length; i++) {
+      if (teams[i].teamName.toUpperCase() == station.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+
+    if (!temp) {
       alert("Station name already taken, try another one.");
     } else {
       // Add station box element
@@ -169,11 +210,30 @@ document.addEventListener("click", function (e) {
 
 // Add fitter function
 function addFitter(e) {
+  let temp = true;
   let teamId = e.target.parentNode.parentNode.id;
   let name = prompt("Enter the name of the fitter");
 
   if (name) {
-    if (names.includes(name)) {
+    for (let i = 0; i < stations.length; i++) {
+      if (stations[i].toUpperCase() == name.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+    for (let i = 0; i < names.length; i++) {
+      if (names[i].toUpperCase() == name.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+    for (let i = 0; i < teams.length; i++) {
+      if (teams[i].teamName.toUpperCase() == name.toUpperCase()) {
+        temp = false;
+        break;
+      }
+    }
+    if (!temp) {
       alert("Name already taken, try another one.");
     } else {
       // Add fitter-box
@@ -228,6 +288,14 @@ function addFitter(e) {
       );
 
       names.push(name);
+      // Push name with competence in team object
+      for (let i = 0; i < teams.length; i++) {
+        if (teams[i].teamName.toUpperCase() == teamId.toUpperCase()) {
+          let tempTeam = teams[i];
+          let tempFitter = { fitterName: name, competency: [] };
+          tempTeam.fitters.push(tempFitter);
+        }
+      }
     }
   }
 }
@@ -242,13 +310,111 @@ document.addEventListener("click", function (e) {
 ////////////////////// FOR LATER /////////////////////////////////
 // Click to add competency
 document.addEventListener("click", (e) => {
+  let temp = true;
   let nameId = e.target.parentNode.parentNode.id;
+
   if (e.target.className.includes("add-competency")) {
+    ///////// Clear div
+    document.querySelector(".pop-up__competency").innerHTML = "";
+    document.getElementById("pop-up-stations").innerHTML = "";
     // Add blur to backround
     document.getElementById("section").classList.add("blur");
     document.getElementById("add-team").classList.add("blur");
 
     // Make pop up visible
     document.querySelector(".pop-up").style.display = "flex";
+
+    //// Add pop-up name
+    document.querySelector(".pop-up__name").innerHTML = nameId;
+
+    for (station of stations) {
+      for (let i = 0; i < teams.length; i++) {
+        for (let j = 0; j < teams[i].fitters.length; j++) {
+          if (
+            nameId.toUpperCase() == teams[i].fitters[j].fitterName.toUpperCase()
+          ) {
+            for (let y = 0; y < teams[i].fitters[j].competency.length; y++) {
+              temp = false;
+              break;
+            }
+            if (temp) {
+              // Add stations to select
+              addElement(
+                "div",
+                "pop-up-stations",
+                "pop-up__stations--station",
+                "temp-" + station
+              );
+
+              // Add h3
+              addElement(
+                "h3",
+                "temp-" + station,
+                "station-to-store",
+                "temp-" + station + "-h3"
+              );
+              document.getElementById(
+                "temp-" + station + "-h3"
+              ).innerHTML = station;
+
+              // Add checkbox
+              addElement(
+                "input",
+                "temp-" + station,
+                "checkbox",
+                "temp-" + station + "-checkbox"
+              );
+              document.getElementById("temp-" + station + "-checkbox").type =
+                "checkbox";
+            }
+          }
+        }
+      }
+    }
+
+    //// Add current-compentency
   }
 });
+
+//{ teamId: divId, fitters: [], stations: [] };
+
+// Functionallity to the add-competency button
+document
+  .getElementById("store-competency")
+  .addEventListener("click", function () {
+    let name = document.querySelector(".pop-up__name").innerHTML;
+    let stations = document.querySelectorAll(".station-to-store");
+
+    //// Search through all names in teams
+    // Search though the teams
+    for (let i = 0; i < teams.length; i++) {
+      let tempArr = [];
+      // Search through the names
+      for (let j = 0; j < teams[i].fitters.length; j++) {
+        if (name == teams[i].fitters[j].fitterName) {
+          // Add competency to fitter
+          for (station of stations) {
+            if (station.nextSibling.checked) {
+              teams[i].fitters[j].competency.push(station.innerHTML);
+
+              // Add competency to name
+              addElement(
+                "div",
+                name + "-competency",
+                "box",
+                name + "-" + station.innerHTML
+              );
+              document.getElementById(
+                name + "-" + station.innerHTML
+              ).innerHTML = station.innerHTML + station.innerHTML.slice(1);
+            }
+          }
+        }
+      }
+    }
+
+    // Make pop up visible
+    document.querySelector(".pop-up").style.display = "none";
+    document.getElementById("section").classList.remove("blur");
+    document.getElementById("add-team").classList.remove("blur");
+  });

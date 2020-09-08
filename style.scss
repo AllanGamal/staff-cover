@@ -208,12 +208,12 @@ section {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-100%, -50%);
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  //display: none;
+  display: none;
 
   .remove-pop-up {
     padding: 2rem;
@@ -259,7 +259,7 @@ section {
       justify-content: space-between;
     }
 
-    h2 {
+    h3 {
       margin: 0 0.5rem;
       font-size: 1.5rem;
       text-align: center;
