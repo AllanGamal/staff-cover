@@ -310,7 +310,6 @@ document.addEventListener("click", function (e) {
 ////////////////////// FOR LATER /////////////////////////////////
 // Click to add competency
 document.addEventListener("click", (e) => {
-  let temp = true;
   let nameId = e.target.parentNode.parentNode.id;
 
   if (e.target.className.includes("add-competency")) {
@@ -330,12 +329,18 @@ document.addEventListener("click", (e) => {
     for (station of stations) {
       for (let i = 0; i < teams.length; i++) {
         for (let j = 0; j < teams[i].fitters.length; j++) {
+          let temp = true;
           if (
             nameId.toUpperCase() == teams[i].fitters[j].fitterName.toUpperCase()
           ) {
             for (let y = 0; y < teams[i].fitters[j].competency.length; y++) {
-              temp = false;
-              break;
+              if (
+                teams[i].fitters[j].competency[y].toUpperCase() ==
+                station.toUpperCase()
+              ) {
+                temp = false;
+                break;
+              }
             }
             if (temp) {
               // Add stations to select
@@ -366,6 +371,18 @@ document.addEventListener("click", (e) => {
               );
               document.getElementById("temp-" + station + "-checkbox").type =
                 "checkbox";
+            } else {
+              addElement("div", "pop-up-competency", "box", station + "-box");
+
+              addElement(
+                "h3",
+                station + "-box",
+                "box-h3",
+                "h3-" + station + "-box"
+              );
+              document.getElementById(
+                "h3-" + station + "-box"
+              ).innerHTML = station.toUpperCase();
             }
           }
         }
@@ -375,8 +392,6 @@ document.addEventListener("click", (e) => {
     //// Add current-compentency
   }
 });
-
-//{ teamId: divId, fitters: [], stations: [] };
 
 // Functionallity to the add-competency button
 document
@@ -388,16 +403,17 @@ document
     //// Search through all names in teams
     // Search though the teams
     for (let i = 0; i < teams.length; i++) {
-      let tempArr = [];
       // Search through the names
       for (let j = 0; j < teams[i].fitters.length; j++) {
-        if (name == teams[i].fitters[j].fitterName) {
+        if (
+          name.toUpperCase() == teams[i].fitters[j].fitterName.toUpperCase()
+        ) {
           // Add competency to fitter
           for (station of stations) {
             if (station.nextSibling.checked) {
               teams[i].fitters[j].competency.push(station.innerHTML);
 
-              // Add competency to name
+              // Add competency box to name
               addElement(
                 "div",
                 name + "-competency",
@@ -406,7 +422,20 @@ document
               );
               document.getElementById(
                 name + "-" + station.innerHTML
-              ).innerHTML = station.innerHTML + station.innerHTML.slice(1);
+              ).innerHTML =
+                station.innerHTML.toUpperCase() + station.innerHTML.slice(1);
+
+              // add competancy x
+              addElement(
+                "button",
+                name + "-" + station.innerHTML,
+                "btn remove-competency",
+                name + "-" + station.innerHTML + "-remove"
+              );
+
+              document.getElementById(
+                name + "-" + station.innerHTML + "-remove"
+              ).innerHTML = "X";
             }
           }
         }

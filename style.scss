@@ -115,6 +115,10 @@ section {
           align-items: center;
           justify-content: center;
 
+          h4 {
+            font-weight: 400;
+          }
+
           &:hover > .remove-competency {
             visibility: visible;
           }
@@ -145,6 +149,7 @@ section {
       h2 {
         font-size: 1.5rem;
         text-align: center;
+        flex: 0;
       }
 
       &:hover > .remove-station {
@@ -239,9 +244,6 @@ section {
     flex-wrap: wrap;
 
     &--station {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       min-height: 3.2rem;
       min-height: 3.2rem;
 
@@ -274,8 +276,10 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 
     .box {
+      font-size: 1.7rem;
       position: relative;
       color: white;
       background-color: #264653;
@@ -289,8 +293,6 @@ section {
       display: flex;
       align-items: center;
       justify-content: center;
-
-      flex: 0;
 
       &:hover > .remove-competency {
         visibility: visible;
