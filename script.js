@@ -373,15 +373,8 @@ document.addEventListener("click", (e) => {
                 "checkbox";
             } else {
               addElement("div", "pop-up-competency", "box", station + "-box");
-
-              addElement(
-                "h3",
-                station + "-box",
-                "box-h3",
-                "h3-" + station + "-box"
-              );
               document.getElementById(
-                "h3-" + station + "-box"
+                station + "-box"
               ).innerHTML = station.toUpperCase();
             }
           }
@@ -420,10 +413,16 @@ document
                 "box",
                 name + "-" + station.innerHTML
               );
+              addElement(
+                "h4",
+                name + "-" + station.innerHTML,
+                "h4-station",
+                "h4-" + name + "-" + station.innerHTML
+              );
               document.getElementById(
-                name + "-" + station.innerHTML
+                "h4-" + name + "-" + station.innerHTML
               ).innerHTML =
-                station.innerHTML.toUpperCase() + station.innerHTML.slice(1);
+                station.innerHTML[0].toUpperCase() + station.innerHTML.slice(1);
 
               // add competancy x
               addElement(
@@ -447,3 +446,45 @@ document
     document.getElementById("section").classList.remove("blur");
     document.getElementById("add-team").classList.remove("blur");
   });
+
+// Remove station button functionality
+document.addEventListener("click", function (e) {
+  if (e.target.className.includes("remove-station")) {
+    let station = e.target.parentNode.id;
+    for (let i = 0; i < stations.length; i++) {
+      if (stations[i].toUpperCase() == station.toUpperCase()) {
+        stations.splice(i, 1);
+      }
+    }
+    document.getElementById(station).remove();
+  }
+});
+
+// Remove fitters competency functionality
+document.addEventListener("click", function (e) {
+  if (e.target.className.includes("remove-competency")) {
+    let sibling = document.getElementById(e.target.id).previousSibling;
+    let name = e.target.parentNode.parentNode.previousSibling.id;
+
+    // Remove fitter competency from arr
+    for (let i = 0; i < teams.length; i++) {
+      for (let j = 0; j < teams[i].fitters.length; j++) {
+        if (
+          teams[i].fitters[j].fitterName.toUpperCase() == name.toUpperCase()
+        ) {
+          for (let y = 0; y < teams[i].fitters[j].competency.length; y++) {
+            if (
+              teams[i].fitters[j].competency[y].toUpperCase() ==
+              sibling.innerHTML.toUpperCase()
+            ) {
+              document
+                .getElementById(name + "-" + teams[i].fitters[j].competency[y])
+                .remove();
+              teams[i].fitters[j].competency.splice(y, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+});
