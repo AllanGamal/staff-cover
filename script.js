@@ -99,8 +99,6 @@ function addElement(box, parent, Class, id) {
 
   // if div class == team, give team name and add to teams list
   if (Class == "team") {
-    console.log(teams);
-
     addTeam(id);
   }
 }
@@ -488,3 +486,25 @@ document.addEventListener("click", function (e) {
     }
   }
 });
+
+// Remove fitters functionality
+document.addEventListener("click", function (e) {
+  if (e.target.className.includes("remove-fitter")) {
+    let name = e.target.nextSibling.id;
+    for (let i = 0; i < teams.length; i++) {
+      for (let j = 0; j < teams[i].fitters.length; j++) {
+        if (
+          teams[i].fitters[j].fitterName.toUpperCase() == name.toUpperCase()
+        ) {
+          teams[i].fitters.splice(j, 1);
+        }
+      }
+    }
+    document.getElementById(name + "-fitter").remove();
+    for (let i = 0; i < names.length; i++) {
+      if (name.toUpperCase() == names[i].toUpperCase()) {
+        names.splice(i, 1);
+      }
+    }
+  }
+  console.log(teams);
