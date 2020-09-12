@@ -19,6 +19,10 @@ function addTeam(divId) {
   document.getElementById(divId).style.backgroundColor = colors[n];
   let test = divId.toString();
 
+  // Add remove-btn
+  addElement("button", divId, "btn remove-team", divId + "-remove-team");
+  document.getElementById(divId + "-remove-team").innerHTML = "X";
+
   // Add team name title
   addElement("div", divId, "team__title", divId + "title-box");
   addElement("h1", divId + "title-box", "teamtitle", divId + "-title");
@@ -507,4 +511,36 @@ document.addEventListener("click", function (e) {
       }
     }
   }
-  console.log(teams);
+});
+
+// Remove team functionality
+document.addEventListener("click", function (e) {
+  if (e.target.className.includes("remove-team")) {
+    let teamName = e.target.parentNode.id;
+    let balances = document.getElementById(teamName + "-stations").childNodes;
+    let fitters = document.querySelectorAll(".name");
+
+    for (let i = 0; i < teams.length; i++) {
+      if (teamName.toUpperCase() == teams[i].teamName.toUpperCase()) {
+        // remove station from stationsArr
+        for (let j = 0; j < stations.length; j++) {
+          for (balance of balances) {
+            if (balance.id.toUpperCase() == stations[j].toUpperCase()) {
+              stations.splice(j, 1);
+            }
+          }
+        }
+        // remove name from namesArr
+        for (let j = 0; j < names.length; j++) {
+          for (fitter of fitters) {
+            if (fitter.id.toUpperCase() == names[j].toUpperCase()) {
+              names.splice(j, 1);
+            }
+          }
+        }
+      }
+      teams.splice(i, 1);
+    }
+    document.getElementById(teamName).remove();
+  }
+});
