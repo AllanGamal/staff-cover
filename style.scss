@@ -23,6 +23,7 @@ section {
   justify-content: space-evenly;
 }
 .team {
+  position: relative;
   min-height: 55rem;
   padding: 0.4rem;
   font-size: 1.7rem;
@@ -36,6 +37,10 @@ section {
 
   grid-template-rows: repeat(2, 6rem) auto;
   grid-template-columns: 3fr 1fr;
+
+  &:hover > .remove-team {
+    visibility: visible;
+  }
 
   &__title {
     margin: 0 auto;
@@ -164,7 +169,8 @@ section {
 
   .remove-station,
   .remove-fitter,
-  .remove-competency {
+  .remove-competency,
+  .remove-team {
     position: absolute;
     font-size: 50%;
     background-color: #f16161;
@@ -213,7 +219,7 @@ section {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-100%, -50%);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: space-around;
