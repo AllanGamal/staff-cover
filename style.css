@@ -16,7 +16,7 @@ body {
 }
 
 section {
-  margin-top: 10rem;
+  margin-top: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -32,6 +32,7 @@ section {
 }
 
 .team {
+  position: relative;
   min-height: 55rem;
   padding: 0.4rem;
   font-size: 1.7rem;
@@ -47,6 +48,10 @@ section {
       grid-template-rows: repeat(2, 6rem) auto;
   -ms-grid-columns: 3fr 1fr;
       grid-template-columns: 3fr 1fr;
+}
+
+.team:hover > .remove-team {
+  visibility: visible;
 }
 
 .team__title {
@@ -224,7 +229,8 @@ section {
 
 .team .remove-station,
 .team .remove-fitter,
-.team .remove-competency {
+.team .remove-competency,
+.team .remove-team {
   position: absolute;
   font-size: 50%;
   background-color: #f16161;
@@ -262,10 +268,26 @@ section {
           box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.34);
 }
 
-#add-team {
-  margin: 10rem auto -5rem auto;
-  font-size: 300%;
+#add-team,
+#calc {
+  margin: 5rem auto 2rem auto;
+  font-size: 200%;
   display: block;
+}
+
+.remove-pop-up,
+.remove-scenario {
+  padding: 2rem;
+  position: absolute;
+  font-size: 50%;
+  background-color: #f16161;
+  border-radius: 50%;
+  height: 1rem;
+  width: 1rem;
+  padding: 0.3rem;
+  right: -0.5rem;
+  top: -0.8rem;
+  visibility: hidden;
 }
 
 .pop-up {
@@ -278,8 +300,8 @@ section {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-100%, -50%);
-          transform: translate(-100%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -293,20 +315,6 @@ section {
       -ms-flex-direction: column;
           flex-direction: column;
   display: none;
-}
-
-.pop-up .remove-pop-up {
-  padding: 2rem;
-  position: absolute;
-  font-size: 50%;
-  background-color: #f16161;
-  border-radius: 50%;
-  height: 1rem;
-  width: 1rem;
-  padding: 0.3rem;
-  right: -0.5rem;
-  top: -0.8rem;
-  visibility: hidden;
 }
 
 .pop-up:hover > .remove-pop-up {
@@ -403,5 +411,97 @@ section {
   -webkit-filter: blur(2px);
           filter: blur(2px);
   pointer-events: none;
+}
+
+.pop-up-cover {
+  position: relative;
+  min-height: 10rem;
+  min-width: 30rem;
+  background-color: #99b2b9;
+  border-radius: 1rem;
+  -webkit-box-shadow: 8px 8px 30px 1px rgba(0, 0, 0, 0.514);
+          box-shadow: 8px 8px 30px 1px rgba(0, 0, 0, 0.514);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  display: none;
+}
+
+.pop-up-cover:hover > .remove-scenario {
+  visibility: visible;
+}
+
+.pop-up-cover .pop-up-title {
+  margin: 2rem;
+}
+
+.pop-up-cover .pop-up-scenarios {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 1.5rem;
+}
+
+.pop-up-cover .pop-up-scenarios__scenario {
+  border-radius: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0 0.5rem;
+  -webkit-box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
+          box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
+}
+
+.pop-up-cover .pop-up-scenarios__scenario .box-name {
+  padding: 0.2rem 0.5rem;
+  min-height: 1.5rem;
+  font-size: 1.7rem;
+  color: black;
+  background-color: #e8e8e8;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.pop-up-cover .pop-up-scenarios__scenario .box-cover {
+  font-size: 1.7rem;
+  position: relative;
+  color: white;
+  background-color: #264653;
+  min-height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 /*# sourceMappingURL=style.css.map */
