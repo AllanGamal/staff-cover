@@ -2,6 +2,7 @@ let colors = ["#264653", "#008D8D", "#607D8B", "#D06045"];
 let nonColors = [];
 let teams = [];
 let stations = [];
+let unavailableSt = [];
 let names = [];
 
 function addTeam(divId) {
@@ -294,7 +295,12 @@ function addFitter(e) {
       for (let i = 0; i < teams.length; i++) {
         if (teams[i].teamName.toUpperCase() == teamId.toUpperCase()) {
           let tempTeam = teams[i];
-          let tempFitter = { fitterName: name, competency: [] };
+          let tempFitter = {
+            fitterName: name,
+            competency: [],
+            present: true,
+            place: false,
+          };
           tempTeam.fitters.push(tempFitter);
         }
       }
@@ -321,6 +327,7 @@ document.addEventListener("click", (e) => {
     // Add blur to backround
     document.getElementById("section").classList.add("blur");
     document.getElementById("add-team").classList.add("blur");
+    document.getElementById("calc").classList.add("blur");
 
     // Make pop up visible
     document.querySelector(".pop-up").style.display = "flex";
@@ -447,12 +454,16 @@ document
     document.querySelector(".pop-up").style.display = "none";
     document.getElementById("section").classList.remove("blur");
     document.getElementById("add-team").classList.remove("blur");
+    document.getElementById("calc").classList.remove("blur");
   });
 
 // Remove station button functionality
 document.addEventListener("click", function (e) {
   if (e.target.className.includes("remove-station")) {
     let station = e.target.parentNode.id;
+    if (unavailableSt.includes(station)) {
+      unavailableSt.splice(unavailableSt.indexOf(station), 1);
+    }
     for (let i = 0; i < stations.length; i++) {
       if (stations[i].toUpperCase() == station.toUpperCase()) {
         stations.splice(i, 1);
@@ -544,3 +555,32 @@ document.addEventListener("click", function (e) {
     document.getElementById(teamName).remove();
   }
 });
+
+// Close pop-up-window
+document.getElementById("remove-pop").addEventListener("click", function (e) {
+  document.querySelector(".pop-up").style.display = "none";
+  document.getElementById("section").classList.remove("blur");
+  document.getElementById("add-team").classList.remove("blur");
+  document.getElementById("calc").classList.remove("blur");
+});
+
+// Make stations unavailable
+document.addEventListener("click", function (e) {
+  if (e.target.type == "checkbox") {
+    let station = e.target.parentNode.id;
+
+    if (document.getElementById(e.target.id).checked) {
+      if (!unavailableSt.includes(station)) {
+        unavailableSt.push(station);
+        document.getElementById(station).classList.add("checked");
+      }
+    } else {
+      unavailableSt.splice(unavailableSt.indexOf(station), 1);
+      document.getElementById(station).classList.remove("checked");
+    }
+    console.log(unavailableSt);
+  }
+});
+
+// Calc possibilities
+document.getElementById("calc").addEventListener("click", function (e) {});

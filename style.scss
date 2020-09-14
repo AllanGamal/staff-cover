@@ -16,12 +16,13 @@ body {
 }
 
 section {
-  margin-top: 10rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   justify-content: space-evenly;
 }
+
 .team {
   position: relative;
   min-height: 55rem;
@@ -204,12 +205,26 @@ section {
   }
 }
 
-#add-team {
-  margin: 10rem auto -5rem auto;
-  font-size: 300%;
+#add-team,
+#calc {
+  margin: 5rem auto 2rem auto;
+  font-size: 200%;
   display: block;
 }
-
+.remove-pop-up,
+.remove-scenario {
+  padding: 2rem;
+  position: absolute;
+  font-size: 50%;
+  background-color: #f16161;
+  border-radius: 50%;
+  height: 1rem;
+  width: 1rem;
+  padding: 0.3rem;
+  right: -0.5rem;
+  top: -0.8rem;
+  visibility: hidden;
+}
 .pop-up {
   height: 30rem;
   width: 40rem;
@@ -226,19 +241,6 @@ section {
   flex-direction: column;
   display: none;
 
-  .remove-pop-up {
-    padding: 2rem;
-    position: absolute;
-    font-size: 50%;
-    background-color: #f16161;
-    border-radius: 50%;
-    height: 1rem;
-    width: 1rem;
-    padding: 0.3rem;
-    right: -0.5rem;
-    top: -0.8rem;
-    visibility: hidden;
-  }
   &:hover > .remove-pop-up {
     visibility: visible;
   }
@@ -310,4 +312,69 @@ section {
 .blur {
   filter: blur(2px);
   pointer-events: none;
+}
+
+.pop-up-cover {
+  position: relative;
+  min-height: 10rem;
+  min-width: 30rem;
+  background-color: rgb(153, 178, 185);
+  border-radius: 1rem;
+  box-shadow: 8px 8px 30px 1px rgba(0, 0, 0, 0.514);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  display: none;
+
+  &:hover > .remove-scenario {
+    visibility: visible;
+  }
+
+  .pop-up-title {
+    margin: 2rem;
+  }
+
+  .pop-up-scenarios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 1.5rem;
+
+    &__scenario {
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      margin: 0 0.5rem;
+
+      box-shadow: 3px 3px 15px 2px rgba(0, 0, 0, 0.377);
+
+      .box-name {
+        padding: 0.2rem 0.5rem;
+        min-height: 1.5rem;
+        font-size: 1.7rem;
+        color: black;
+        background-color: #e8e8e8;
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+      }
+
+      .box-cover {
+        font-size: 1.7rem;
+        position: relative;
+        color: white;
+        background-color: #264653;
+        min-height: 1.5rem;
+        padding: 0.2rem 0.5rem;
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+    }
+  }
 }
