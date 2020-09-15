@@ -567,18 +567,53 @@ document.getElementById("remove-pop").addEventListener("click", function (e) {
 // Make stations unavailable
 document.addEventListener("click", function (e) {
   if (e.target.type == "checkbox") {
-    let station = e.target.parentNode.id;
+    if (e.target.parentNode.className.includes("team__stations--station")) {
+      let station = e.target.parentNode.id;
 
-    if (document.getElementById(e.target.id).checked) {
-      if (!unavailableSt.includes(station)) {
-        unavailableSt.push(station);
-        document.getElementById(station).classList.add("checked");
+      if (document.getElementById(e.target.id).checked) {
+        if (!unavailableSt.includes(station)) {
+          unavailableSt.push(station);
+          document.getElementById(station).classList.add("checked");
+        }
+      } else {
+        unavailableSt.splice(unavailableSt.indexOf(station), 1);
+        document.getElementById(station).classList.remove("checked");
       }
-    } else {
-      unavailableSt.splice(unavailableSt.indexOf(station), 1);
-      document.getElementById(station).classList.remove("checked");
+      console.log(unavailableSt);
     }
-    console.log(unavailableSt);
+  }
+});
+
+// Make fitters unavailable
+document.addEventListener("click", function (e) {
+  if (e.target.type == "checkbox") {
+    if (e.target.parentNode.className.includes("options")) {
+      let name = e.target.parentNode.parentNode.id;
+
+      if (document.getElementById(e.target.id).checked) {
+        document.getElementById(name + "-fitter").classList.add("checked");
+        for (let i = 0; i < teams.length; i++) {
+          for (let j = 0; j < teams[i].fitters.length; j++) {
+            if (
+              teams[i].fitters[j].fitterName.toUpperCase() == name.toUpperCase()
+            ) {
+              teams[i].fitters[j].present = false;
+            }
+          }
+        }
+      } else {
+        document.getElementById(name + "-fitter").classList.remove("checked");
+        for (let i = 0; i < teams.length; i++) {
+          for (let j = 0; j < teams[i].fitters.length; j++) {
+            if (
+              teams[i].fitters[j].fitterName.toUpperCase() == name.toUpperCase()
+            ) {
+              teams[i].fitters[j].present = true;
+            }
+          }
+        }
+      }
+    }
   }
 });
 
