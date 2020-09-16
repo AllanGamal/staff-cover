@@ -299,7 +299,7 @@ function addFitter(e) {
             fitterName: name,
             competency: [],
             present: true,
-            place: false,
+            placed: false,
           };
           tempTeam.fitters.push(tempFitter);
         }
@@ -618,4 +618,53 @@ document.addEventListener("click", function (e) {
 });
 
 // Calc possibilities
-document.getElementById("calc").addEventListener("click", function (e) {});
+document.getElementById("calc").addEventListener("click", function (e) {
+  console.log(teams);
+
+  for (let x = 0; x < teams[x].fitters.length; x++) {
+    let combo = [];
+    let stations = ["a", "b", "c"];
+    for (let y = 0; y < teams[x].fitters.length; y++) {
+      teams[x].fitters[y].placed = false;
+    }
+    // Loop through teams[x].fitters
+    for (let i = 0; i < teams[x].fitters.length; i++) {
+      if (stations.length > 0) {
+        console.log(stations);
+        if (teams[x].fitters[i].present == true) {
+          if (teams[x].fitters[i].placed == false) {
+            // Loop throgh the competence of the individuals
+
+            for (let j = 0; j < teams[x].fitters[i].competency.length; j++) {
+              let current = teams[x].fitters[i].competency[j];
+              let index = stations.indexOf(teams[x].fitters[i].competency[j]);
+
+              if (stations.includes(current)) {
+                // Occupy balance
+                stations.splice(index, 1);
+                combo.push(teams[x].fitters[i].fitterName + " " + current);
+                console.log(teams[x].fitters[i].fitterName + " " + current);
+                teams[x].fitters[i].placed = true;
+                break;
+              }
+            }
+          }
+        }
+      }
+      if (!combos.includes(combo)) {
+        if (combo.length == 3) {
+          combos.push(combo);
+        }
+      }
+    }
+
+    names.push(names.splice(0, 1)[0]);
+  }
+
+  console.log(combos);
+  if (combos.length > 0) {
+    console.log("Possible");
+  } else {
+    console.log("not possible");
+  }
+});
