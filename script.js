@@ -619,52 +619,66 @@ document.addEventListener("click", function (e) {
 
 // Calc possibilities
 document.getElementById("calc").addEventListener("click", function (e) {
-  console.log(teams);
+  let mames = [];
 
-  for (let x = 0; x < teams[x].fitters.length; x++) {
-    let combo = [];
-    let stations = ["a", "b", "c"];
-    for (let y = 0; y < teams[x].fitters.length; y++) {
-      teams[x].fitters[y].placed = false;
+  for (let i = 0; i < teams.length; i++) {
+    for (let x = 0; x < teams[i].fitters.length; x++) {
+      mames.push(teams[i].fitters[x]);
     }
-    // Loop through teams[x].fitters
-    for (let i = 0; i < teams[x].fitters.length; i++) {
-      if (stations.length > 0) {
-        console.log(stations);
-        if (teams[x].fitters[i].present == true) {
-          if (teams[x].fitters[i].placed == false) {
-            // Loop throgh the competence of the individuals
+  }
 
-            for (let j = 0; j < teams[x].fitters[i].competency.length; j++) {
-              let current = teams[x].fitters[i].competency[j];
-              let index = stations.indexOf(teams[x].fitters[i].competency[j]);
+  let combos = [];
+  for (let x = 0; x < mames.length; x++) {
+    let combo = [];
+    let temp = [];
+    for (station of stations) {
+      temp.push(station);
+    }
 
-              if (stations.includes(current)) {
+    for (let y = 0; y < mames.length; y++) {
+      mames[y].placed = false;
+    }
+    // Loop through mames
+    for (let i = 0; i < mames.length; i++) {
+      if (temp.length > 0) {
+        if (mames[i].present == true) {
+          if (mames[i].placed == false) {
+            // Loop throgh the balances of the individuals
+
+            for (let j = 0; j < mames[i].competency.length; j++) {
+              let current = mames[i].competency[j];
+              let index = temp.indexOf(mames[i].competency[j]);
+
+              if (temp.includes(current)) {
+                console.log(current);
                 // Occupy balance
-                stations.splice(index, 1);
-                combo.push(teams[x].fitters[i].fitterName + " " + current);
-                console.log(teams[x].fitters[i].fitterName + " " + current);
-                teams[x].fitters[i].placed = true;
+                temp.splice(index, 1);
+                combo.push(mames[i].fitterName + " " + current);
+                console.log(mames[i].fitterName + " " + current);
+                mames[i].placed = true;
                 break;
               }
             }
           }
         }
       }
+      console.log(temp);
       if (!combos.includes(combo)) {
+        console.log(combo);
         if (combo.length == 3) {
           combos.push(combo);
         }
       }
     }
 
-    names.push(names.splice(0, 1)[0]);
+    mames.push(mames.splice(0, 1)[0]);
   }
-
   console.log(combos);
   if (combos.length > 0) {
     console.log("Possible");
+    console.log(combos);
   } else {
+    console.log(combos);
     console.log("not possible");
   }
 });
