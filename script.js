@@ -619,6 +619,62 @@ document.addEventListener("click", function (e) {
 
 // Calc possibilities
 document.getElementById("calc").addEventListener("click", function (e) {
+  let tempNames = [];
+  let tempStations = [];
+  let results = [];
+  let test = [];
+
+  for (let i = 0; i < teams.length; i++) {
+    for (let x = 0; x < teams[i].fitters.length; x++) {
+      tempNames.push(teams[i].fitters[x]);
+    }
+  }
+
+  for (station of stations) {
+    tempStations.push(station);
+    test.push({ station: station, names: [] });
+  }
+
+  for (let i = 0; i < tempNames.length; i++) {
+    for (let j = 0; j < test.length; j++) {
+      if (tempNames[i].competency.includes(test[j].station)) {
+        test[j].names.push(tempNames[i].fitterName);
+      }
+    }
+  }
+
+  let mest = [];
+  for (let i = 0; i < test.length; i++) {
+    mest.push(test[i].names);
+  }
+
+  // Put all names under their competency station
+
+  console.log(tempStations);
+  console.log(tempNames);
+  console.log(results);
+  console.log(mest);
+
+  function allPossibleCases(arr) {
+    if (arr.length == 1) {
+      return arr[0];
+    } else {
+      var result = [];
+      var allCasesOfRest = allPossibleCases(arr.slice(1)); // recur with the rest of array
+      for (var i = 0; i < allCasesOfRest.length; i++) {
+        for (var j = 0; j < arr[0].length; j++) {
+          result.push(arr[0][j] + " " + allCasesOfRest[i]);
+        }
+      }
+      return result;
+    }
+  }
+  console.log(allPossibleCases(mest));
+});
+
+/*
+// Calc possibilities
+document.getElementById("calc").addEventListener("click", function (e) {
   let mames = [];
 
   for (let i = 0; i < teams.length; i++) {
@@ -665,7 +721,7 @@ document.getElementById("calc").addEventListener("click", function (e) {
       console.log(temp);
       if (!combos.includes(combo)) {
         console.log(combo);
-        if (combo.length == 3) {
+        if (combo.length == stations.length) {
           combos.push(combo);
         }
       }
@@ -682,3 +738,102 @@ document.getElementById("calc").addEventListener("click", function (e) {
     console.log("not possible");
   }
 });
+
+var array = ["apple", "banana", "lemon", "mango"];
+var results = [];
+
+// Since you only want pairs, there's no reason
+// to iterate over the last element directly
+for (var i = 0; i < array.length - 1; i++) {
+  // This is where you'll capture that last value
+  for (var j = i + 1; j < array.length; j++) {
+    results.push(array[i] + " " + array[j]);
+  }
+}
+
+console.log(results);
+
+/*
+let mames = [
+  {
+    name: "Adam",
+    balances: ["a", "b", "c"],
+    present: true,
+    placed: false,
+  },
+  {
+    name: "Bertil",
+    balances: ["a", "b"],
+    present: true,
+    placed: false,
+  },
+  {
+    name: "Carl",
+    balances: ["b"],
+    present: true,
+    placed: false,
+  },
+  {
+    name: "Daniel",
+    balances: ["a"],
+    present: true,
+    placed: false,
+  },
+  {
+    name: "Erik",
+    balances: ["b"],
+    present: true,
+    placed: false,
+  },
+];
+
+let balances = ["a", "b", "c"];
+let combos = [];
+for (let x = 0; x < mames.length; x++) {
+  let combo = [];
+  let temp = ["a", "b", "c"];
+  for (let y = 0; y < mames.length; y++) {
+    mames[y].placed = false;
+  }
+  // Loop through mames
+  for (let i = 0; i < mames.length; i++) {
+    if (temp.length > 0) {
+      console.log(temp);
+      if (mames[i].present == true) {
+        if (mames[i].placed == false) {
+          // Loop throgh the balances of the individuals
+
+          for (let j = 0; j < mames[i].balances.length; j++) {
+            let current = mames[i].balances[j];
+            let index = temp.indexOf(mames[i].balances[j]);
+
+            if (temp.includes(current)) {
+              // Occupy balance
+              temp.splice(index, 1);
+              combo.push(mames[i].name + " " + current);
+              console.log(mames[i].name + " " + current);
+              mames[i].placed = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (!combos.includes(combo)) {
+      if (combo.length == 3) {
+        combos.push(combo);
+      }
+    }
+  }
+
+  console.log(mames);
+  mames.push(mames.splice(0, 1)[0]);
+  console.log(mames);
+}
+console.log(combos);
+if (combos.length > 0) {
+  console.log("Possible");
+} else {
+  console.log("not possible");
+}
+*/
