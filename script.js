@@ -638,7 +638,7 @@ document.getElementById("calc").addEventListener("click", function (e) {
   for (let i = 0; i < tempNames.length; i++) {
     for (let j = 0; j < test.length; j++) {
       if (tempNames[i].competency.includes(test[j].station)) {
-        test[j].names.push(tempNames[i].fitterName);
+        test[j].names.push([tempNames[i].fitterName, test[j].station]);
       }
     }
   }
@@ -659,18 +659,44 @@ document.getElementById("calc").addEventListener("click", function (e) {
     if (arr.length == 1) {
       return arr[0];
     } else {
-      var result = [];
-      var allCasesOfRest = allPossibleCases(arr.slice(1)); // recur with the rest of array
-      for (var i = 0; i < allCasesOfRest.length; i++) {
-        for (var j = 0; j < arr[0].length; j++) {
-          result.push(arr[0][j] + " " + allCasesOfRest[i]);
+      let result = [];
+      let allCasesOfRest = allPossibleCases(arr.slice(1)); // recur with the rest of array
+      for (let i = 0; i < allCasesOfRest.length; i++) {
+        for (let j = 0; j < arr[0].length; j++) {
+          if (arr) result.push(arr[0] + " " + allCasesOfRest[i]);
         }
       }
       return result;
     }
   }
-  console.log(allPossibleCases(mest));
+  //console.log(allPossibleCases(mest));
+  console.log(cartesian(names, tempStations));
 });
+
+function cartesian(...args) {
+  let r = [],
+    max = args.length - 1;
+
+  function helper(arr, i) {
+    for (let j = 0, l = args[i].length; j < l; j++) {
+      let a = arr.slice(0); // clone arr
+      a.push(args[i][j]);
+
+      if (i == max) {
+        r.push(a);
+      } else {
+        helper(a, i + 1);
+      }
+    }
+  }
+  helper([], 0);
+
+  let temp = [];
+
+  return r;
+}
+
+console.log(cartesian([0, 1, 2], [1, 2, 3], [0, 1, 2]));
 
 /*
 // Calc possibilities
@@ -837,3 +863,37 @@ if (combos.length > 0) {
   console.log("not possible");
 }
 */
+
+let names = [
+  {
+    name: "Adam",
+    station: ["c"],
+  },
+  {
+    name: "Robin",
+    station: ["a", "b"],
+  },
+  {
+    name: "Carl",
+    station: ["b"],
+  },
+  {
+    name: "Daniel",
+    station: ["a"],
+  },
+];
+
+let station = ["a", "b", "c"];
+
+let allPossibleCases = [
+  [
+    ["Robin", "a"],
+    ["Carl", "b"],
+    ["Adam", "c"],
+  ],
+  [
+    ["Daniel", "a"],
+    ["Robin", "b"],
+    ["Adam", "c"],
+  ],
+];
